@@ -40,7 +40,7 @@ export const DepartmentDetails = () => {
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/`}>
 						<ArrowBackIcon />
 					</IconButton>{" "}
-					<h1>Course Details</h1>
+					<h1>Department Details</h1>
 					<p>Department Name: {department?.departmentName}</p>
 					<p>Speciality: {department?.speciality}</p>
 					<p>Number of Animals: {department?.nrOfAnimals}</p>
