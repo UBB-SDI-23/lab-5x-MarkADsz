@@ -49,8 +49,9 @@ export const StatisticDepCareTakers = () => {
 							<TableRow>
 								<TableCell>#</TableCell>
 								<TableCell align="right">Department Name</TableCell>
-								<TableCell align="right">Speciality</TableCell>
-                        <TableCell align="right">Care Takers</TableCell>
+								<TableCell align="center">Speciality</TableCell>
+                        <TableCell align="center">Number of Care Takers</TableCell>
+                        <TableCell align="center">Average number of Care Takers</TableCell>
                         <TableCell align="center">Care Takers Information</TableCell>
 								
 							</TableRow>
@@ -66,6 +67,7 @@ export const StatisticDepCareTakers = () => {
 									</TableCell>
 									<TableCell align="center">{department.speciality}</TableCell>
                            <TableCell align="center">{department.nr_caretakers}</TableCell>
+                           <TableCell align="center">{department.avg_caretakers}</TableCell>
                            <TableCell align="center">
                                  <ol>
                                        {department?.current_caretakers?.map((caretaker) => (
