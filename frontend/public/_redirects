@@ -1,2 +1,2 @@
-/api/* http://ec2-54-85-205-44.compute-1.amazonaws.com/animalshelter/:splat 200!
+/api/* http://ec2-54-85-205-44.compute-1.amazonaws.com/api/:splat 200!
 /*    /index.html   200
