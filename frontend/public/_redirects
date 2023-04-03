@@ -1,2 +1,2 @@
-/api/* http://http://127.0.0.1:8000/departments/:splat 200!
+/api/* http://ec2-54-85-205-44.compute-1.amazonaws.com/departments/:splat 200!
 /*    /index.html   200
