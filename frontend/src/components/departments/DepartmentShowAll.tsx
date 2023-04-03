@@ -10,21 +10,24 @@ import {
 	Container,
 	IconButton,
 	Tooltip,
+	Toolbar,
+	Button,
 } from "@mui/material";
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
 import { Department } from "../../models/Department";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
-
+import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 export const AllDepartments = () => {
 	const [loading, setLoading] = useState(false);
 	const [departments, setDepartments] = useState<Department[]>([]);
-
+	const location = useLocation();
+	const path = location.pathname;
 	useEffect(() => {
 		setLoading(true);
 		fetch(`${BACKEND_API_URL}/departments/`)
@@ -35,6 +38,12 @@ export const AllDepartments = () => {
 			});
 	}, []);
 
+
+	const orderByAvailablePlaces=()=>{
+		const sorted = [...departments].sort((a, b) => a.availablePlaces - b.availablePlaces);
+		setDepartments(sorted);
+	}
+
 	return (
 		<Container>
 			<h1>All Departments</h1>
@@ -42,11 +51,22 @@ export const AllDepartments = () => {
 			{loading && <CircularProgress />}
 			{!loading && departments.length === 0 && <p>No departments found</p>}
 			{!loading && (
+				<Toolbar>
 				<IconButton component={Link} sx={{ mr: 3 }} to={`/departments/add`}>
 					<Tooltip title="Add a new Department" arrow>
 						<AddIcon color="primary" />
 					</Tooltip>
 				</IconButton>
+				
+				<Button
+						onClick={orderByAvailablePlaces}
+						// component={Link}
+						// color="inherit"
+						// sx={{ mr: 5 }}
+						// startIcon={<LocalLibraryIcon />}
+						>Order By Abailable Places
+					</Button>
+				</Toolbar>
 			)}
 			{!loading && departments.length > 0 && (
 				<TableContainer component={Paper}>

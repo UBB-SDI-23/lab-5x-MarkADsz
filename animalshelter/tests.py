@@ -4,8 +4,7 @@ from animalshelter.models import CareTakers
 from animalshelter.models import Departments
 
 # from unittest import TestCase
-from rest_framework.test import APIRequestFactory, APITestCase
-from animalshelter.views import caretaker_list
+
 
 class CareTakersExperienceGreaterThanAverageModelTestcase(TestCase):
     @classmethod

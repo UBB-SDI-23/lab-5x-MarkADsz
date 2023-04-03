@@ -14,12 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,re_path
+from django.urls import path
+
+import animalshelter.views.ViewsTakeCare
+import animalshelter.views.ViewsCareTakers
+import animalshelter.views.ViewsShelteredAnimals
+import animalshelter.views.ViewsDepartments
+
 from animalshelter import views
-from rest_framework.schemas import get_schema_view
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
 from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView
 # schema_view = get_schema_view(
 #     openapi.Info(
@@ -47,17 +49,18 @@ urlpatterns = [
     path('schema/',SpectacularAPIView.as_view(),name='schema'),
     path('schema/docs/',SpectacularSwaggerView.as_view(url_name='schema')),
     path('admin/', admin.site.urls),
-    path('shelteredanimals/', views.animal_list),
-    path('shelteredanimals/<int:id>', views.animal_detail),
-    path('departments/', views.department_list),
-    path('departments/<int:id>', views.department_detail),
-    path('caretakers/', views.caretaker_list),
-    path('caretakers_ordered_years_experience/', views.caretaker_list_ordered_by_avg_years_experience),
-    path('caretakers/<int:id>', views.caretaker_detail),
-    path('takecare/', views.takecare_list),
-    path('takecare/<int:id>', views.takecare_detail),
-    path('departments_ordered_by_caretakers/', views.departments_ordered_by_caretakers),
-    path('shelteredanimals/<int:id>/caretakers', views.add_bulk_caretakers_to_animal),
+    path('shelteredanimals/', views.ViewsShelteredAnimals.animal_list),
+    path('shelteredanimals/<int:id>', views.ViewsShelteredAnimals.animal_detail),
+    path('departments/', views.ViewsDepartments.department_list),
+    path('departments/<int:id>', views.ViewsDepartments.department_detail),
+    path('caretakers/', views.ViewsCareTakers.caretaker_list),
+    path('caretakers_ordered_years_experience/',
+         views.ViewsCareTakers.caretaker_list_ordered_by_avg_years_experience),
+    path('caretakers/<int:id>', views.ViewsCareTakers.caretaker_detail),
+    path('takecare/', views.ViewsTakeCare.takecare_list),
+    path('takecare/<int:id>', views.ViewsTakeCare.takecare_detail),
+    path('departments_ordered_by_caretakers/', views.ViewsDepartments.departments_ordered_by_caretakers),
+    path('shelteredanimals/<int:id>/caretakers', views.ViewsTakeCare.add_bulk_caretakers_to_animal),
 
 
 ]
