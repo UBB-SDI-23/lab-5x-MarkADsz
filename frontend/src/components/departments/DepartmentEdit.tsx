@@ -40,7 +40,7 @@ useEffect(() => {
 const updateDepartment = async (event: { preventDefault: () => void }) => {
    event.preventDefault();
    try {
-   console.log(department);
+   // console.log(department);
    await axios.put(`${BACKEND_API_URL}/departments/${departmentId}`, department);
    navigate("/departments");
    } catch (error) {

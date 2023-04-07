@@ -108,7 +108,7 @@ class DepartmentDTOSerializer(serializers.ModelSerializer):
     nrOfPersonnel = serializers.IntegerField()
     availablePlaces = serializers.IntegerField()
     nr_caretakers = serializers.IntegerField()
-    avg_caretakers= serializers.IntegerField()
+    avg_caretakers= serializers.FloatField()
     current_caretakers=CareTakerSerializer(many=True)
     class Meta:
         model = Departments

@@ -60,10 +60,6 @@ export const AllDepartments = () => {
 				
 				<Button
 						onClick={orderByAvailablePlaces}
-						// component={Link}
-						// color="inherit"
-						// sx={{ mr: 5 }}
-						// startIcon={<LocalLibraryIcon />}
 						>Order By Abailable Places
 					</Button>
 				</Toolbar>

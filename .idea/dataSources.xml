@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\UBB_FMI\MPP\GITHUB\lab-4-MarkADsz\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="db [2]" uuid="4afe0478-65fd-4710-a3d0-3b1f3dad279b">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\UBB_FMI\MPP\GITHUB\lab-5x-MarkADsz\db.sqlite3</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
