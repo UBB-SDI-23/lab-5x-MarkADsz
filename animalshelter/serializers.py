@@ -9,7 +9,7 @@ class ShelteredAnimalsSerializers(serializers.ModelSerializer):
     class Meta:
         "Metadata Describing the Model"
         model= ShelteredAnimals
-        fields=['id','commonName','givenName','weight','height','isHealthy']
+        fields=['id','commonName','givenName','weight','height','isHealthy','description']
 
     def validate_weight(self,value):
         if value < 0:
@@ -68,7 +68,7 @@ class ShelteredAnimalsSerializerDetail(serializers.ModelSerializer):
     class Meta:
         "Metadata Describing the Model"
         model= ShelteredAnimals
-        fields=['id','commonName','givenName','weight','height','isHealthy','allCareTakers']
+        fields=['id','commonName','givenName','weight','height','isHealthy','description','allCareTakers']
 
     def validate_weight(self,value):
         if value < 0:

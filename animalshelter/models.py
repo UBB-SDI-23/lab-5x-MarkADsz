@@ -6,6 +6,7 @@ class ShelteredAnimals(models.Model):
     weight=models.IntegerField()
     height=models.IntegerField()
     isHealthy=models.CharField(max_length=5)
+    description=models.CharField(max_length=20000,default='no description')
 
 class Departments(models.Model):
     departmentName = models.CharField(max_length=50)

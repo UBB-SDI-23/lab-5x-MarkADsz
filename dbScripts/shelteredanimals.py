@@ -30,10 +30,14 @@ with open('populateShelteredAnimals.sql', 'w') as f:
             # generate a fake isHealthy field with value Yes or No
             is_healthy = fake.random_element(elements=('Yes', 'No'))
 
+            words = [fake.word() for i in range(100)]
+            description=' '.join(words)
+
+
             values.append(
-                f'(\'{common_name}\', \'{given_name}\', {weight}, {height}, \'{is_healthy}\')'
+                f'(\'{common_name}\', \'{given_name}\', {weight}, {height}, \'{is_healthy}\',\'{description}.\')'
             )
 
         print(
-            f'INSERT INTO animalshelter_shelteredanimals  ("commonName", "givenName", weight, height, "isHealthy") VALUES {", ".join(values)};',
+            f'INSERT INTO animalshelter_shelteredanimals  ("commonName", "givenName", weight, height, "isHealthy", description) VALUES {", ".join(values)};',
             file=f)
