@@ -35,14 +35,14 @@ with open('populateTakeCare.sql', 'w') as f:
             caringMonths = fake.random_int(min=1, max=100)
 
             # generate a random shift
-            shift = fake.random_element(elements=('Morning', 'Afternoon','Evening','Night'))
+            shiftEx = fake.random_element(elements=('Morning', 'Afternoon','Evening','Night'))
 
             # generate a random animal_id
             animal_id = fake.random_int(min=j * 1000 + 1, max=(j + 1) * 1000)
 
             # add it to the batch of inserts
             values.append(
-                f'({caringMonths}, {shift}, {animal_id}, {caretaker_id})')
+                f'({caringMonths}, {shiftEx}, {animal_id}, {caretaker_id})')
 
         # execute the batch of inserts
         print(
