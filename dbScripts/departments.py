@@ -34,5 +34,5 @@ with open('populateDepartments.sql', 'w') as f:
             )
 
         print(
-            f'INSERT INTO animalshelter_departments (departmentName, speciality, nrOfAnimals, nrOfPersonnel, availablePlaces) VALUES {", ".join(values)};',
+            f'INSERT INTO animalshelter_departments ("departmentName", speciality, "nrOfAnimals", "nrOfPersonnel", "availablePlaces") VALUES {", ".join(values)};',
             file=f)
