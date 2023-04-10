@@ -27,7 +27,7 @@ with open('populateTakeCare.sql', 'w') as f:
             print(f'Generated {i * 10000} records')
 
         # generate a random coffee_id
-        caretaker_id = fake.random_int(min=i * 100 + 1, max=(i + 1) * 100)
+        caretaker_id_generated = fake.random_int(min=i * 100 + 1, max=(i + 1) * 100)
 
         values = []
         for j in range(1000):
@@ -38,15 +38,15 @@ with open('populateTakeCare.sql', 'w') as f:
             shiftEx = fake.random_element(elements=('Morning', 'Afternoon','Evening','Night'))
 
             # generate a random animal_id
-            animal_id = fake.random_int(min=j * 1000 + 1, max=(j + 1) * 1000)
+            animal_id_generated = fake.random_int(min=j * 1000 + 1, max=(j + 1) * 1000)
 
             # add it to the batch of inserts
             values.append(
-                f'({caringMonths}, {shiftEx}, {animal_id}, {caretaker_id})')
+                f'({caringMonths}, {shiftEx}, {animal_id_generated}, {caretaker_id_generated})')
 
         # execute the batch of inserts
         print(
-            f'INSERT INTO animalshelter_takecare ("caringMonths", shift, animal_id, caretaker_id) VALUES {", ".join(values)};',
+            f'INSERT INTO animalshelter_takecare ("caringMonths", "shift", "animal_id", "caretaker_id") VALUES {", ".join(values)};',
             file=f)
 
     # enable fk
