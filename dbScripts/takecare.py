@@ -42,7 +42,8 @@ with open('populateTakeCare.sql', 'w') as f:
 
             # add it to the batch of inserts
             values.append(
-                f'({caringMonths}, {shiftEx}, {animal_id_generated}, {caretaker_id_generated})')
+                f'({caringMonths}, \'{shiftEx}\', {animal_id_generated}, {caretaker_id_generated})'
+            )
 
         # execute the batch of inserts
         print(
