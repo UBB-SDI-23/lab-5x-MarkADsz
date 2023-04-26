@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from animalshelter.models import CareTakers, Departments
 from animalshelter.serializers import CareTakerSerializer, CareTakerSerializerDetail, CareTakerDTOSerializer
 
-
+from .Pagination import CustomPagination
 @extend_schema(responses=CareTakerSerializer)
 @api_view(['GET', 'POST'])
 def caretaker_list(request):
@@ -20,8 +20,10 @@ def caretaker_list(request):
             caretakers = CareTakers.objects.all()
         "get all drinks, serialize them  return json"
         #caretakers=CareTakers.objects.all()
-        serializer=CareTakerSerializer(caretakers,many=True)
-        return Response(serializer.data)
+        paginator = CustomPagination()
+        paginated_caretakers = paginator.paginate_queryset(caretakers, request)
+        serializer = CareTakerSerializer(paginated_caretakers, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     if request.method == 'POST':
         serializer=CareTakerSerializer(data=request.data)
@@ -88,4 +90,16 @@ def caretaker_list_ordered_by_avg_years_experience(request):
         caretaker_dtos.append(caretaker_dto)
     caretaker_dtos_sorted = sorted(caretaker_dtos, key=lambda x: x.yearsExperience)
     serializer = CareTakerDTOSerializer(caretaker_dtos_sorted, many=True)
+    return Response(serializer.data)
+
+@extend_schema(responses=CareTakerSerializer)
+@api_view(['GET'])
+def caretakers_autocomplete(request):
+    serializer_class = CareTakerSerializer
+    query = request.query_params.get('query', None)
+    if query:
+        caretakers = CareTakers.objects.filter(name__icontains=query).order_by('first')[:20]
+    else:
+        caretakers = CareTakers.objects.all()[:20]
+    serializer = CareTakerSerializer(caretakers, many=True)
     return Response(serializer.data)

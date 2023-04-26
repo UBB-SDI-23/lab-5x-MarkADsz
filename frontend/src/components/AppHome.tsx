@@ -6,8 +6,8 @@ export const AppHome = () => {
 		<React.Fragment>
 			<CssBaseline />
 
-			<Container maxWidth="xl">
-				<Typography variant="h1" component="h1" gutterBottom>
+			<Container maxWidth="xl" sx={{height:"100vh"}}>
+				<Typography variant="h1" component="h1" gutterBottom sx={{margin:"300px 0 0 0"}}>
 					Shelter Management System
 				</Typography>
 			</Container>

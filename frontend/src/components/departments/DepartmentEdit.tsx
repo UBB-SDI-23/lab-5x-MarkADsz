@@ -14,6 +14,7 @@ const navigate = useNavigate();
 const { departmentId } = useParams();
 
 const [department, setDepartment] = useState<Department>({
+   id:1,
    departmentName: "",
    speciality: "",
    nrOfAnimals: 0,
@@ -49,10 +50,10 @@ const updateDepartment = async (event: { preventDefault: () => void }) => {
 };
 
    return (
-      <Container>
-         <Card>
+      <Container sx={{height:"100vh"}}>
+         <Card sx={{background:"#EEE5E9"}}>
          <CardContent>
-            <IconButton component={Link} sx={{ mr: 3 }} to={`/departments/${departmentId}`}>
+            <IconButton component={Link} sx={{ mr: 3 }} to={`/departments/`}>
                <ArrowBackIcon />
             </IconButton>{" "}
             <form onSubmit={updateDepartment}>

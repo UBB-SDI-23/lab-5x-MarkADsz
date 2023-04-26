@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from animalshelter.models import ShelteredAnimals
 from animalshelter.serializers import ShelteredAnimalsSerializers, ShelteredAnimalsSerializerDetail
-
+from .Pagination import CustomPagination
 
 @extend_schema(responses=ShelteredAnimalsSerializers)
 @api_view(['GET', 'POST'])
@@ -14,8 +14,11 @@ def animal_list(request):
     if request.method == 'GET':
         "get all drinks, serialize them  return json"
         animals=ShelteredAnimals.objects.all()
-        serializer=ShelteredAnimalsSerializers(animals,many=True)
-        return Response(serializer.data)
+        paginator = CustomPagination()
+        paginated_animals = paginator.paginate_queryset(animals, request)
+        serializer = ShelteredAnimalsSerializers(paginated_animals, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
 
     if request.method == 'POST':
         serializer=ShelteredAnimalsSerializers(data=request.data)

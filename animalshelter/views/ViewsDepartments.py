@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from animalshelter.models import Departments, CareTakers
 from animalshelter.serializers import DepartmentSerializer, DepartmentSerializerDetail, DepartmentDTOSerializer
 
+from .Pagination import CustomPagination
+
 
 @extend_schema(responses=DepartmentSerializer)
 @api_view(['GET', 'POST'])
@@ -15,8 +17,10 @@ def department_list(request):
     if request.method == 'GET':
         "get all drinks, serialize them  return json"
         departments=Departments.objects.all()
-        serializer=DepartmentSerializer(departments,many=True)
-        return Response(serializer.data)
+        paginator= CustomPagination()
+        paginated_departments=paginator.paginate_queryset(departments,request)
+        serializer=DepartmentSerializer(paginated_departments,many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     if request.method == 'POST':
         serializer=DepartmentSerializer(data=request.data)
@@ -90,4 +94,17 @@ def departments_ordered_by_caretakers(request):
         department_dtos.append(department_dto)
     department_dtos_sorted = sorted(department_dtos, key=lambda x: x.nr_caretakers)
     serializer = DepartmentDTOSerializer(department_dtos_sorted, many=True)
+    return Response(serializer.data)
+
+
+@extend_schema(responses=DepartmentSerializer)
+@api_view(['GET'])
+def departments_autocomplete(request):
+    serializer_class = DepartmentSerializer
+    query = request.query_params.get('query', None)
+    if query:
+        departments = Departments.objects.filter(departmentName__icontains=query).order_by('departmentName')[:20]
+    else:
+        departments = Departments.objects.all()[:20]
+    serializer = DepartmentSerializer(departments, many=True)
     return Response(serializer.data)

@@ -34,10 +34,10 @@ export const DepartmentDetails = () => {
 		
 
 	return (
-		<Container>
-			<Card>
+		<Container sx={{height:"100vh"}}>
+			<Card sx={{background:"#EEE5E9"}}>
 				<CardContent >
-					<IconButton component={Link} sx={{ mr: 3 }} to={`/`}>
+					<IconButton component={Link} sx={{ mr: 3 }} to={`/departments/`}>
 						<ArrowBackIcon />
 					</IconButton>{" "}
 					<h1>Department Details</h1>

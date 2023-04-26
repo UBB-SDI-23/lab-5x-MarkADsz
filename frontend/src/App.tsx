@@ -17,6 +17,10 @@ import { DepartmentDelete } from './components/departments/DepartmentDelete';
 import { DepartmentEdit } from './components/departments/DepartmentEdit';
 import { StatisticsShow } from './components/statistics/StatisticsChoose';
 import { StatisticDepCareTakers } from './components/statistics/StatisticsDepartCareTakers';
+import {AllCareTakers} from './components/caretakers/CareTakerShowAll';
+import {CareTakerAdd} from './components/caretakers/CareTakerAdd';
+import { CareTakerEdit } from './components/caretakers/CareTakerEdit';
+import { AllShelteredAnimals } from './components/animals/AnimalsShowAll';
 // import { CourseDetails } from "./components/courses/CourseDetails";
 // import { CourseDelete } from "./components/courses/CourseDelete";
 // import { CourseAdd } from "./components/courses/CourseAdd";
@@ -29,13 +33,22 @@ function App() {
 
 				<Routes>
 					<Route path="/" element={<AppHome />} />
-					<Route path="/departments" element={<AllDepartments />} />
+					<Route path="/departments/" element={<AllDepartments />} />
 					<Route path="/departments/:departmentId/details" element={<DepartmentDetails />} />
 					<Route path="/departments/:departmentId/edit" element={<DepartmentEdit />} />
 					<Route path="/departments/:departmentId/delete" element={<DepartmentDelete />} />
 					<Route path="/departments/add" element={<DepartmentAdd />} />
-          <Route path="/statistics" element={<StatisticsShow />} />
-          <Route path="/statistics/department_ordered_caretakers" element={<StatisticDepCareTakers />}/>
+
+					<Route path="/caretakers/" element={<AllCareTakers />} />
+					{/* <Route path="/caretakers/:caretakerId/details" element={<DepartmentDetails />} /> */}
+					<Route path="/caretakers/:caretakerId/edit" element={<CareTakerEdit />} />
+					{/* <Route path="/caretakers/:caretakerId/delete" element={<DepartmentDelete />} /> */}
+					<Route path="/caretakers/add" element={<CareTakerAdd />} />
+
+					<Route path="/shelteredanimals/" element={<AllShelteredAnimals />} />
+
+					<Route path="/statistics" element={<StatisticsShow />} />
+					<Route path="/statistics/department_ordered_caretakers" element={<StatisticDepCareTakers />}/>
 				</Routes>
 			</Router>
 		</React.Fragment>

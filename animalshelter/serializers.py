@@ -18,9 +18,6 @@ class ShelteredAnimalsSerializers(serializers.ModelSerializer):
 
 
 
-
-
-
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Departments

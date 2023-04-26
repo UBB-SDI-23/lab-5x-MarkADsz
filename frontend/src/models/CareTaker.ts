@@ -1,3 +1,4 @@
+import { Department } from "./Department";
 export interface CareTaker{
    id: number;
    firstName: string;

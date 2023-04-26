@@ -44,7 +44,7 @@ export const StatisticDepCareTakers = () => {
 			{!loading && departments.length === 0 && <p>No departments found</p>}
 			{!loading && departments.length > 0 && (
 				<TableContainer component={Paper}>
-					<Table sx={{ minWidth: 650 }} aria-label="simple table">
+					<Table sx={{ minWidth: 650 ,background:"#EEE5E9" }} aria-label="simple table">
 						<TableHead>
 							<TableRow>
 								<TableCell>#</TableCell>

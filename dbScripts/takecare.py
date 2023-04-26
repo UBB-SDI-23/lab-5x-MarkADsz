@@ -26,12 +26,12 @@ with open('populateTakeCare.sql', 'w') as f:
         if (i % 1000 == 0):
             print(f'Generated {i * 10000} records')
 
-        # generate a random coffee_id
+
         caretaker_id_generated = fake.random_int(min=i * 100 + 1, max=(i + 1) * 100)
 
         values = []
         for j in range(1000):
-            # generate a fake sold_coffees that is between 1 and 1000
+
             caringMonths = fake.random_int(min=1, max=100)
 
             # generate a random shift

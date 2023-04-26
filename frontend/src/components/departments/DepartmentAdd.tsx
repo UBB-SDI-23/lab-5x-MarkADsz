@@ -13,6 +13,7 @@ export const DepartmentAdd = () => {
 	const navigate = useNavigate();
 
 	const [department, setDepartment] = useState<Department>({
+		id:1,
 		departmentName: "",
 		speciality: "", 
 		nrOfAnimals: 0, 
@@ -31,8 +32,8 @@ export const DepartmentAdd = () => {
 	};
 
 	return (
-		<Container>
-			<Card>
+		<Container sx={{height:"100vh"}}>
+			<Card  sx={{background:"#EEE5E9"}}>
 				<CardContent>
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/departments`}>
 						<ArrowBackIcon />

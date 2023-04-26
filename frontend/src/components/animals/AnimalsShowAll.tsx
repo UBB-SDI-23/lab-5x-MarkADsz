@@ -17,7 +17,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link, useLocation} from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
-import { Department } from "../../models/Department";
+import { CareTaker } from "../../models/CareTaker";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -25,19 +25,20 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AddIcon from "@mui/icons-material/Add";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
-export const AllDepartments = () => {
+import { ShelteredAnimal } from "../../models/ShelteredAnimals";
+export const AllShelteredAnimals = () => {
 	const [loading, setLoading] = useState(false);
-	const [departments, setDepartments] = useState<Department[]>([]);
+	const [animals, setAnimals] = useState<ShelteredAnimal[]>([]);
 	const location = useLocation();
 	const path = location.pathname;
 	const [currentPage, setCurrentPage] = useState(1);
 	const totalPages = Math.ceil(10000000 / 10);
 	useEffect(() => {
 		setLoading(true);
-		fetch(`${BACKEND_API_URL}/departments/?p=${currentPage}`)
+		fetch(`${BACKEND_API_URL}/shelteredanimals/?p=${currentPage}`)
 			.then((response) => response.json())
 			.then((data) => {
-				setDepartments(data.results);
+				setAnimals(data.results);
 				setLoading(false);
 			});
 	}, []);
@@ -49,10 +50,10 @@ export const AllDepartments = () => {
 		setCurrentPage(currentPage + 1);
 		console.log(currentPage);
 		setLoading(true);
-		fetch(`${BACKEND_API_URL}/departments/?p=${currentPage+1}`)
+		fetch(`${BACKEND_API_URL}/shelteredanimals/?p=${currentPage+1}`)
 		.then((response) => response.json())
 		.then((data) => {
-			setDepartments(data.results);
+			setAnimals(data.results);
 			setLoading(false);
 		});
 		
@@ -65,94 +66,88 @@ export const AllDepartments = () => {
 		setCurrentPage(currentPage - 1);
 		console.log(currentPage);
 		setLoading(true);
-		fetch(`${BACKEND_API_URL}/departments/?p=${currentPage-1}`)
+		fetch(`${BACKEND_API_URL}/shelteredanimals/?p=${currentPage-1}`)
 		.then((response) => response.json())
 		.then((data) => {
-			setDepartments(data.results);
+			setAnimals(data.results);
 			setLoading(false);
 		});
 		
 	}
 	};
 
-	const orderByAvailablePlaces=()=>{
-		const sorted = [...departments].sort((a, b) => a.availablePlaces - b.availablePlaces);
-		setDepartments(sorted);
-	}
 
 	return (
 		<Container sx={{height:"100vh"}}>
-			<h1>All Departments</h1>
+			<h1>All Sheltered Animals</h1>
 
 			{loading && <CircularProgress />}
-			{!loading && departments.length === 0 && <p>No departments found</p>}
+			{!loading && animals.length === 0 && <p>No Animals found</p>}
 			{!loading && (
 				<Toolbar>
-					<IconButton onClick={handlePrevPage} style={{ marginRight:'370px'}} component={Link} sx={{ mr: 3 }} to={`/departments/?p=${currentPage}`} disabled={currentPage === 1}>
+					<IconButton onClick={handlePrevPage} style={{ marginRight:'370px'}} component={Link} sx={{ mr: 3 }} to={`/shelteredanimals/?p=${currentPage}`} disabled={currentPage === 1}>
 						<Tooltip title="Previous">
 							<ArrowBackIosIcon sx={{ color: "white" }} />
 						</Tooltip>
 					</IconButton>
-					<IconButton  component={Link} sx={{ mr: 3 }} to={`/departments/add`}>
-						<Tooltip sx={{color:"#EEE5E9"}} title="Add a new Department" arrow>
+					<IconButton component={Link} sx={{ mr: 3 }} to={`/shelteredanimals/add`}>
+						<Tooltip  sx={{color:"#EEE5E9"}} title="Add a new Animal" arrow>
 							<AddIcon color="primary" />
 						</Tooltip>
 					</IconButton>
-					<IconButton style={{ marginLeft:'370px'}} onClick={handleNextPage} component={Link} sx={{ mr: 3 }}  to={`/departments/?p=${currentPage }`} disabled={currentPage === totalPages}>
+					<IconButton style={{ marginLeft:'370px'}} onClick={handleNextPage} component={Link} sx={{ mr: 3 }}  to={`/shelteredanimals/?p=${currentPage }`} disabled={currentPage === totalPages}>
 						<Tooltip title="Next">
 						<ArrowForwardIosIcon sx={{ color: "white" }} />
 						</Tooltip>
 					</IconButton>
 					
-					<Button sx={{color:"#EEE5E9"}}
-							onClick={orderByAvailablePlaces}
-							>Order By Abailable Places
-						</Button>
 				</Toolbar>
 			)}
-			{!loading && departments.length > 0 && (
-				<TableContainer  component={Paper}>
-					<Table sx={{ minWidth: 650 ,background:"#EEE5E9"}} aria-label="simple table">
+			{!loading && animals.length > 0 && (
+				<TableContainer component={Paper}>
+					<Table sx={{ minWidth: 650 ,background:"#EEE5E9" }} aria-label="simple table">
 						<TableHead>
 							<TableRow>
 								<TableCell>#</TableCell>
-								<TableCell align="right">Department Name</TableCell>
-								<TableCell align="right">Speciality</TableCell>
-								<TableCell align="right">Number of Animals</TableCell>
-								<TableCell align="right">Number of Personnel</TableCell>
-                        <TableCell align="center">Available Places</TableCell>
+								<TableCell align="right">Given Name</TableCell>
+								<TableCell align="right">Common Name</TableCell>
+								<TableCell align="right">Weight(Kg)</TableCell>
+								<TableCell align="right">Height(Cm)</TableCell>
+                        <TableCell align="center">isHealthy</TableCell>
+								<TableCell align="center">Description</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{departments.map((department, index) => (
-								<TableRow key={department.id}>
+							{animals.map((animal, index) => (
+								<TableRow key={animal.id}>
 									<TableCell component="th" scope="row">
 										{index + 1}
 									</TableCell>
 									<TableCell component="th" scope="row">
-										<Link to={`/departments/${department.id}/details`} title="View department details">
-											{department.departmentName}
+										<Link to={`/shelteredanimals/${animal.id}/details`} title="View Animal Details">
+											{animal.givenName}
 										</Link>
 									</TableCell>
-									<TableCell align="center">{department.speciality}</TableCell>
-									<TableCell align="center">{department.nrOfAnimals}</TableCell>
-									<TableCell align="center">{department.nrOfPersonnel}</TableCell>
-									<TableCell align="center">{department.availablePlaces}</TableCell>
+									<TableCell align="center">{animal.commonName}</TableCell>
+									<TableCell align="center">{animal.weight.toString() }</TableCell>
+									<TableCell align="center">{animal.height.toString() }</TableCell>
+									<TableCell align="center">{animal.isHealthy}</TableCell>
+									<TableCell align="center">{animal.description}</TableCell>
 									<TableCell align="right">
 										<IconButton
 											component={Link}
 											sx={{ mr: 3 }}
-											to={`/departments/${department.id}/details`}>
-											<Tooltip title="View department details" arrow>
+											to={`/shelteredanimals/${animal.id}/details`}>
+											<Tooltip title="View animal details" arrow>
 												<ReadMoreIcon color="primary" />
 											</Tooltip>
 										</IconButton>
 
-										<IconButton component={Link} sx={{ mr: 3 }} to={`/departments/${department.id}/edit`}>
+										<IconButton component={Link} sx={{ mr: 3 }} to={`/shelteredanimals/${animal.id}/edit`}>
 											<EditIcon />
 										</IconButton>
 
-										<IconButton component={Link} sx={{ mr: 3 }} to={`/departments/${department.id}/delete`}>
+										<IconButton component={Link} sx={{ mr: 3 }} to={`/shelteredanimals/${animal.id}/delete`}>
 											<DeleteForeverIcon sx={{ color: "red" }} />
 										</IconButton>
 									</TableCell>

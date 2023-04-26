@@ -1,8 +1,11 @@
 #root {
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: #EEE5E9;;
+  background-color: #2b2d42;
+ 
 }
 
 .logo {
@@ -40,3 +43,6 @@
 .read-the-docs {
   color: #888;
 }
+
+/* COSTUM CSS */
+

@@ -24,10 +24,10 @@ import AddIcon from "@mui/icons-material/Add";
 export const StatisticsShow = () => {
 
 	return (
-            <Container>
+            <Container sx={{height:"100vh"}}>
                <h1>Statistics</h1>
                <TableContainer component={Paper}>
-                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <Table sx={{ minWidth: 650 ,background:"#EEE5E9" }} aria-label="simple table">
                   <TableHead>
                      <TableRow>
                         <TableCell>#</TableCell>
