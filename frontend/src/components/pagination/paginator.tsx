@@ -51,7 +51,7 @@ useEffect(() => {
 const visiblePages = useMemo(() => {
    const pageNumbers = [];
 
-   debugger;
+   // debugger;
    if (totalPages <= pageRange) {
    for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
@@ -110,7 +110,8 @@ return (
          <Button
             variant={page === currentPage ? "contained" : "outlined"}
             disabled={page==="..."}
-            onClick={() => setPage(Number(page))}
+            
+            onClick={() => (setPage(Number(page)), console.log(page))}
          >
             {page}
          </Button>

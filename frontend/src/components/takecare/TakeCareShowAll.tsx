@@ -77,52 +77,8 @@ export const AllTakeCare = () => {
 
 	useEffect(() => {
 		fetchTakeCare();
+		console.log(page)
       }, [page]);
-
-	// useEffect(() => {
-	// 	setLoading(true);
-	// 	fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage}&page_size=${PAGE_SIZE}`)
-	// 		.then((response) => response.json())
-	// 		.then((data) => {
-	// 			setTakeCare(data.results);
-	// 			setTotalPages(Math.ceil(data.count / PAGE_SIZE));
-	// 			setLoading(false);
-	// 		});
-	// }, []);
-
-
-	// const handleNextPage = () => {
-	// if (currentPage < totalPages) {
-		
-	// 	setCurrentPage(currentPage + 1);
-	// 	// console.log(currentPage);
-	// 	// setLoading(true);
-	// 	// fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage+1}`)
-	// 	// .then((response) => response.json())
-	// 	// .then((data) => {
-	// 	// 	setTakeCare(data.results);
-	// 	// 	setLoading(false);
-	// 	// });
-		
-	// }
-	// };
-
-	// const handlePrevPage = () => {
-	// if (currentPage > 1) {
-		
-	// 	setCurrentPage(currentPage - 1);
-	// 	// console.log(currentPage);
-	// 	// setLoading(true);
-	// 	// fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage-1}`)
-	// 	// .then((response) => response.json())
-	// 	// .then((data) => {
-	// 	// 	setTakeCare(data.results);
-	// 	// 	setLoading(false);
-	// 	// });
-		
-	// }
-	// };
-
 
 	return (
 		<Container sx={{height:"100vh"}}>
@@ -132,22 +88,11 @@ export const AllTakeCare = () => {
 			{!loading && takecare.length === 0 && <p>No shift found</p>}
 			{!loading && (
 				<Toolbar>
-					{/* <IconButton onClick={handlePrevPage} style={{ marginRight:'370px'}} component={Link} sx={{ mr: 3 }} to={`/takecare/?p=${currentPage}`} disabled={currentPage === 1}>
-						<Tooltip title="Previous">
-							<ArrowBackIosIcon sx={{ color: "white" }} />
-						</Tooltip>
-					</IconButton> */}
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/takecare/add`}>
 						<Tooltip sx={{color:"#EEE5E9"}} title="Add a new shift" arrow>
 							<AddIcon color="primary" />
 						</Tooltip>
 					</IconButton>
-					{/* <IconButton style={{ marginLeft:'370px'}} onClick={handleNextPage} component={Link} sx={{ mr: 3 }}  to={`/takecare/?p=${currentPage }`} disabled={currentPage === totalPages}>
-						<Tooltip title="Next">
-						<ArrowForwardIosIcon sx={{ color: "white" }} />
-						</Tooltip>
-					</IconButton> */}
-					
 				</Toolbar>
 			)}
 			{!loading && takecare.length > 0 && (
