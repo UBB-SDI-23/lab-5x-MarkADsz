@@ -7,6 +7,7 @@ with open('populateCareTakers.sql', 'w') as f:
     # delete all the existing records
     print('TRUNCATE TABLE animalshelter_caretakers RESTART IDENTITY CASCADE;', file=f)
 
+    print('DROP INDEX animalshelter_caretakers_department_id_idx;', file=f)
     # generate new records to insert
     for i in range(1000):
         if (i % 100 == 0):
@@ -38,3 +39,4 @@ with open('populateCareTakers.sql', 'w') as f:
         print(
             f'INSERT INTO animalshelter_caretakers ("firstName", "lastName", "department_id", "yearsExperience", "isVolunteer") VALUES {", ".join(values)};',
             file=f)
+        print('CREATE INDEX animalshelter_caretakers_department_id_idx ON animalshelter_caretakers (department_id);', file=f)

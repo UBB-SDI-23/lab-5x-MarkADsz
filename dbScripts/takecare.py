@@ -16,10 +16,10 @@ with open('populateTakeCare.sql', 'w') as f:
         file=f)
 
     # disable the index on animal id
-    print('DROP INDEX animalshelter_takecare_animal_id_fc13da62;', file=f)
+    print('DROP INDEX animalshelter_takecare_animal_id_idx;', file=f)
 
     # disable the index on caretaker id
-    print('DROP INDEX animalshelter_takecare_caretaker_id_60d33ea1;', file=f)
+    print('DROP INDEX animalshelter_takecare_caretaker_id_idx;', file=f)
 
     # generate new records to insert
     for i in range(10000):

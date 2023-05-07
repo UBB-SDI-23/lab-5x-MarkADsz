@@ -77,7 +77,6 @@ export const AllTakeCare = () => {
 
 	useEffect(() => {
 		fetchTakeCare();
-		console.log(page)
       }, [page]);
 
 	return (
@@ -93,6 +92,8 @@ export const AllTakeCare = () => {
 							<AddIcon color="primary" />
 						</Tooltip>
 					</IconButton>
+					
+					
 				</Toolbar>
 			)}
 			{!loading && takecare.length > 0 && (
@@ -114,20 +115,20 @@ export const AllTakeCare = () => {
 									<TableCell component="th" scope="row">
 										{index + 1}
 									</TableCell>
-									{/* <TableCell component="th" scope="row">
+									<TableCell component="th" scope="row">
 										<Link to={`/caretakers/${takec.id}/details`} title="View Workshift details">
 											{takec.id}
 										</Link>
-									</TableCell> */}
+									</TableCell>
 									<TableCell align="center">
-                              {/* <Link to={`/caretakers/${takec.caretaker_id}/details`} title="View caretaker ">
+                              <Link to={`/caretakers/${takec.caretaker_id}/details`} title="View caretaker ">
 											{takec.caretaker_id.toString()}
-										</Link> */}
+										</Link>
                            </TableCell>
 									<TableCell align="center">
-                              {/* <Link to={`/shelteredanimals/${takec.animal_id}/details`} title="View animal ">
+                              <Link to={`/shelteredanimals/${takec.animal_id}/details`} title="View animal ">
 											{takec.animal_id.toString()}
-										</Link> */}
+										</Link>
                            </TableCell>
 									<TableCell align="center">{takec.caringMonths}</TableCell>
 									<TableCell align="center">{takec.shift}</TableCell>
