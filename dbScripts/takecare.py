@@ -57,3 +57,7 @@ with open('populateTakeCare.sql', 'w') as f:
     print(
         'ALTER TABLE animalshelter_takecare ADD CONSTRAINT animalshelter_takeca_caretaker_id_60d33ea1_fk_animalshe FOREIGN KEY (caretaker_id) REFERENCES animalshelter_caretakers (id);',
         file=f)
+
+    # create new indexes
+    print('CREATE INDEX animalshelter_takecare_animal_id_idx ON animalshelter_takecare (animal_id);', file=f)
+    print('CREATE INDEX animalshelter_takecare_caretaker_id_idx ON animalshelter_takecare (caretaker_id);', file=f)
