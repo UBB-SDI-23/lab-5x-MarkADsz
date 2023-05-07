@@ -39,4 +39,4 @@ with open('populateCareTakers.sql', 'w') as f:
         print(
             f'INSERT INTO animalshelter_caretakers ("firstName", "lastName", "department_id", "yearsExperience", "isVolunteer") VALUES {", ".join(values)};',
             file=f)
-        print('CREATE INDEX animalshelter_caretakers_department_id_idx ON animalshelter_caretakers (department_id);', file=f)
+    print('CREATE INDEX animalshelter_caretakers_department_id_idx ON animalshelter_caretakers (department_id);', file=f)
