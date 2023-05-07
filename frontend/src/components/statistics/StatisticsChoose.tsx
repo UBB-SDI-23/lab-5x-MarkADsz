@@ -39,6 +39,10 @@ export const StatisticsShow = () => {
                         <TableCell component="th" scope="row">1</TableCell>
                         <TableCell component="th" scope="row"> <Link to={`/statistics/department_ordered_caretakers`}>Departments ordered by number of caretakers </Link></TableCell>
                      </TableRow>
+                     <TableRow>
+                        <TableCell component="th" scope="row">2</TableCell>
+                        <TableCell component="th" scope="row"> <Link to={`/statistics/caretakers_ordered_years_experience`}>Caretakers ordered by years of experience</Link></TableCell>
+                     </TableRow>
                   </TableBody>
                   </Table>
             </TableContainer>

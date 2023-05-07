@@ -107,8 +107,7 @@ export const CareTakerAdd = () => {
 									onChange={(event,value)=>
 									{
 
-										console.log("VALUE"
-							,value);
+										// console.log("VALUE",value);
 										if (value)
 										{
 											console.log(value);

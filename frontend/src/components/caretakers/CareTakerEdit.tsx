@@ -160,7 +160,7 @@ const updateCareTaker = async (event: { preventDefault: () => void }) => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setCareTakers({ ...caretaker, isVolunteer: event.target.value })}
 						/>
-						<Button type="submit">Add CareTaker</Button>
+						<Button type="submit">Edit CareTaker</Button>
 					</form>
    </CardContent>
 				<CardActions></CardActions>

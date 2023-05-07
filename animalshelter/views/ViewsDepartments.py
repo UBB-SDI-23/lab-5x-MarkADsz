@@ -93,8 +93,12 @@ def departments_ordered_by_caretakers(request):
         )
         department_dtos.append(department_dto)
     department_dtos_sorted = sorted(department_dtos, key=lambda x: x.nr_caretakers)
-    serializer = DepartmentDTOSerializer(department_dtos_sorted, many=True)
-    return Response(serializer.data)
+    # serializer = DepartmentDTOSerializer(department_dtos_sorted, many=True)
+    paginator = CustomPagination()
+    paginated_departments = paginator.paginate_queryset(department_dtos_sorted, request)
+    serializer = DepartmentDTOSerializer(paginated_departments, many=True)
+    return paginator.get_paginated_response(serializer.data)
+
 
 
 @extend_schema(responses=DepartmentSerializer)

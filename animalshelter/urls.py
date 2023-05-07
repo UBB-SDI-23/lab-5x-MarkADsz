@@ -51,6 +51,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('shelteredanimals/', views.ViewsShelteredAnimals.animal_list),
     path('shelteredanimals/<int:id>', views.ViewsShelteredAnimals.animal_detail),
+    path('shelteredanimals/autocomplete', views.ViewsShelteredAnimals.animals_autocomplete),
     path('departments/', views.ViewsDepartments.department_list),
     path('departments/<int:id>', views.ViewsDepartments.department_detail),
     path('departments/autocomplete', views.ViewsDepartments.departments_autocomplete),

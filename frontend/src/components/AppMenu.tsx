@@ -66,6 +66,15 @@ export const AppMenu = () => {
 						startIcon={<ArticleIcon />}>
 						Statistics
 					</Button>
+					<Button
+						variant={path.startsWith("/takecare/") ? "outlined" : "text"}
+						to="/takecare/"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<ArticleIcon />}>
+						Shifts
+					</Button>
 				</Toolbar>
 			</AppBar>
 		</Box>

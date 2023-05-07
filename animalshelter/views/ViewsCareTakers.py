@@ -3,7 +3,7 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from django.db.models import Q
 from animalshelter.models import CareTakers, Departments
 from animalshelter.serializers import CareTakerSerializer, CareTakerSerializerDetail, CareTakerDTOSerializer
 
@@ -89,8 +89,10 @@ def caretaker_list_ordered_by_avg_years_experience(request):
             )
         caretaker_dtos.append(caretaker_dto)
     caretaker_dtos_sorted = sorted(caretaker_dtos, key=lambda x: x.yearsExperience)
-    serializer = CareTakerDTOSerializer(caretaker_dtos_sorted, many=True)
-    return Response(serializer.data)
+    paginator = CustomPagination()
+    paginated_caretakers = paginator.paginate_queryset(caretaker_dtos_sorted, request)
+    serializer = CareTakerDTOSerializer(paginated_caretakers, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 @extend_schema(responses=CareTakerSerializer)
 @api_view(['GET'])
@@ -98,8 +100,11 @@ def caretakers_autocomplete(request):
     serializer_class = CareTakerSerializer
     query = request.query_params.get('query', None)
     if query:
-        caretakers = CareTakers.objects.filter(name__icontains=query).order_by('first')[:20]
+        caretakers = CareTakers.objects.filter(
+            Q(firstName__icontains=query) | Q(lastName__icontains=query)
+        ).order_by('firstName')[:20]
     else:
         caretakers = CareTakers.objects.all()[:20]
     serializer = CareTakerSerializer(caretakers, many=True)
     return Response(serializer.data)
+
