@@ -25,36 +25,39 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AddIcon from "@mui/icons-material/Add";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+const PAGE_SIZE = 10;
 export const AllTakeCare = () => {
 	const [loading, setLoading] = useState(false);
 	const [takecare, setTakeCare] = useState<TakeCare[]>([]);
 	const location = useLocation();
 	const path = location.pathname;
+	const [totalPages, setTotalPages] = useState(0);
 	const [currentPage, setCurrentPage] = useState(1);
-	const totalPages = Math.ceil(10000000 / 10);
+	
 	useEffect(() => {
 		setLoading(true);
-		fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage}`)
+		fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage}&page_size=${PAGE_SIZE}`)
 			.then((response) => response.json())
 			.then((data) => {
 				setTakeCare(data.results);
+				setTotalPages(Math.ceil(data.count / PAGE_SIZE));
 				setLoading(false);
 			});
-	}, []);
+	}, [currentPage]);
 
 
 	const handleNextPage = () => {
 	if (currentPage < totalPages) {
 		
 		setCurrentPage(currentPage + 1);
-		console.log(currentPage);
-		setLoading(true);
-		fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage+1}`)
-		.then((response) => response.json())
-		.then((data) => {
-			setTakeCare(data.results);
-			setLoading(false);
-		});
+		// console.log(currentPage);
+		// setLoading(true);
+		// fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage+1}`)
+		// .then((response) => response.json())
+		// .then((data) => {
+		// 	setTakeCare(data.results);
+		// 	setLoading(false);
+		// });
 		
 	}
 	};
@@ -63,14 +66,14 @@ export const AllTakeCare = () => {
 	if (currentPage > 1) {
 		
 		setCurrentPage(currentPage - 1);
-		console.log(currentPage);
-		setLoading(true);
-		fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage-1}`)
-		.then((response) => response.json())
-		.then((data) => {
-			setTakeCare(data.results);
-			setLoading(false);
-		});
+		// console.log(currentPage);
+		// setLoading(true);
+		// fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage-1}`)
+		// .then((response) => response.json())
+		// .then((data) => {
+		// 	setTakeCare(data.results);
+		// 	setLoading(false);
+		// });
 		
 	}
 	};
