@@ -120,14 +120,14 @@ export const AllTakeCare = () => {
 										</Link>
 									</TableCell> */}
 									<TableCell align="center">
-                              <Link to={`/caretakers/${takec.caretaker_id}/details`} title="View caretaker ">
+                              {/* <Link to={`/caretakers/${takec.caretaker_id}/details`} title="View caretaker ">
 											{takec.caretaker_id.toString()}
-										</Link>
+										</Link> */}
                            </TableCell>
 									<TableCell align="center">
-                              <Link to={`/shelteredanimals/${takec.animal_id}/details`} title="View animal ">
+                              {/* <Link to={`/shelteredanimals/${takec.animal_id}/details`} title="View animal ">
 											{takec.animal_id.toString()}
-										</Link>
+										</Link> */}
                            </TableCell>
 									<TableCell align="center">{takec.caringMonths}</TableCell>
 									<TableCell align="center">{takec.shift}</TableCell>
