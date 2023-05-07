@@ -26,57 +26,102 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AddIcon from "@mui/icons-material/Add";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 const PAGE_SIZE = 10;
+import { Paginator } from "../pagination/paginator";
 export const AllTakeCare = () => {
 	const [loading, setLoading] = useState(false);
 	const [takecare, setTakeCare] = useState<TakeCare[]>([]);
 	const location = useLocation();
 	const path = location.pathname;
 	const [totalPages, setTotalPages] = useState(0);
-	const [currentPage, setCurrentPage] = useState(1);
+	// const [currentPage, setCurrentPage] = useState(1);
 	
-	useEffect(() => {
+	const [page, setPage] = useState(1);
+	const [pageSize, setPageSize] = useState(10);
+	const [totalRows, setTotalRows] = useState(0);
+	const crt = (page - 1) * pageSize + 1;
+
+	const [isLastPage, setIsLastPage] = useState(false);
+
+	const setCurrentPage = (newPage: number) => {
+		setPage(newPage);
+	}
+
+	const goToNextPage = () => {
+		if (isLastPage) {
+			return;
+		}
+
+		setPage(page + 1);
+	}
+
+	const goToPrevPage = () => {
+		if (page === 1) {
+			return;
+		}
+
+		setPage(page - 1);
+	}
+
+
+		const fetchTakeCare = async () => {
 		setLoading(true);
-		fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage}&page_size=${PAGE_SIZE}`)
-			.then((response) => response.json())
-			.then((data) => {
-				setTakeCare(data.results);
-				setTotalPages(Math.ceil(data.count / PAGE_SIZE));
-				setLoading(false);
-			});
-	}, [currentPage]);
-
-
-	const handleNextPage = () => {
-	if (currentPage < totalPages) {
-		
-		setCurrentPage(currentPage + 1);
-		// console.log(currentPage);
-		// setLoading(true);
-		// fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage+1}`)
-		// .then((response) => response.json())
-		// .then((data) => {
-		// 	setTakeCare(data.results);
-		// 	setLoading(false);
-		// });
-		
-	}
+		const response = await fetch(
+			`${BACKEND_API_URL}/takecare/?page=${page}&page_size=${pageSize}`
+		);
+		const { count, next, previous, results } = await response.json();
+		setTakeCare(results);
+		setTotalRows(count);
+		setIsLastPage(!next);
+		setLoading(false);
 	};
 
-	const handlePrevPage = () => {
-	if (currentPage > 1) {
+	useEffect(() => {
+		fetchTakeCare();
+      }, [page]);
+
+	// useEffect(() => {
+	// 	setLoading(true);
+	// 	fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage}&page_size=${PAGE_SIZE}`)
+	// 		.then((response) => response.json())
+	// 		.then((data) => {
+	// 			setTakeCare(data.results);
+	// 			setTotalPages(Math.ceil(data.count / PAGE_SIZE));
+	// 			setLoading(false);
+	// 		});
+	// }, []);
+
+
+	// const handleNextPage = () => {
+	// if (currentPage < totalPages) {
 		
-		setCurrentPage(currentPage - 1);
-		// console.log(currentPage);
-		// setLoading(true);
-		// fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage-1}`)
-		// .then((response) => response.json())
-		// .then((data) => {
-		// 	setTakeCare(data.results);
-		// 	setLoading(false);
-		// });
+	// 	setCurrentPage(currentPage + 1);
+	// 	// console.log(currentPage);
+	// 	// setLoading(true);
+	// 	// fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage+1}`)
+	// 	// .then((response) => response.json())
+	// 	// .then((data) => {
+	// 	// 	setTakeCare(data.results);
+	// 	// 	setLoading(false);
+	// 	// });
 		
-	}
-	};
+	// }
+	// };
+
+	// const handlePrevPage = () => {
+	// if (currentPage > 1) {
+		
+	// 	setCurrentPage(currentPage - 1);
+	// 	// console.log(currentPage);
+	// 	// setLoading(true);
+	// 	// fetch(`${BACKEND_API_URL}/takecare/?p=${currentPage-1}`)
+	// 	// .then((response) => response.json())
+	// 	// .then((data) => {
+	// 	// 	setTakeCare(data.results);
+	// 	// 	setLoading(false);
+	// 	// });
+		
+	// }
+	// };
 
 
 	return (
@@ -87,25 +132,26 @@ export const AllTakeCare = () => {
 			{!loading && takecare.length === 0 && <p>No shift found</p>}
 			{!loading && (
 				<Toolbar>
-					<IconButton onClick={handlePrevPage} style={{ marginRight:'370px'}} component={Link} sx={{ mr: 3 }} to={`/takecare/?p=${currentPage}`} disabled={currentPage === 1}>
+					{/* <IconButton onClick={handlePrevPage} style={{ marginRight:'370px'}} component={Link} sx={{ mr: 3 }} to={`/takecare/?p=${currentPage}`} disabled={currentPage === 1}>
 						<Tooltip title="Previous">
 							<ArrowBackIosIcon sx={{ color: "white" }} />
 						</Tooltip>
-					</IconButton>
+					</IconButton> */}
 					<IconButton component={Link} sx={{ mr: 3 }} to={`/takecare/add`}>
 						<Tooltip sx={{color:"#EEE5E9"}} title="Add a new shift" arrow>
 							<AddIcon color="primary" />
 						</Tooltip>
 					</IconButton>
-					<IconButton style={{ marginLeft:'370px'}} onClick={handleNextPage} component={Link} sx={{ mr: 3 }}  to={`/takecare/?p=${currentPage }`} disabled={currentPage === totalPages}>
+					{/* <IconButton style={{ marginLeft:'370px'}} onClick={handleNextPage} component={Link} sx={{ mr: 3 }}  to={`/takecare/?p=${currentPage }`} disabled={currentPage === totalPages}>
 						<Tooltip title="Next">
 						<ArrowForwardIosIcon sx={{ color: "white" }} />
 						</Tooltip>
-					</IconButton>
+					</IconButton> */}
 					
 				</Toolbar>
 			)}
 			{!loading && takecare.length > 0 && (
+				<>
 				<TableContainer component={Paper}>
 					<Table sx={{ minWidth: 650 ,background:"#EEE5E9" }} aria-label="simple table">
 						<TableHead>
@@ -163,6 +209,17 @@ export const AllTakeCare = () => {
 						</TableBody>
 					</Table>
 				</TableContainer>
+				<Paginator
+					rowsPerPage={pageSize}
+					totalRows={totalRows}
+					currentPage={page}
+					isFirstPage={page === 1}
+					isLastPage={isLastPage}
+					setPage={setCurrentPage}
+					goToNextPage={goToNextPage}
+					goToPrevPage={goToPrevPage}
+						/>
+			</>
 			)}
 		</Container>
 	);
